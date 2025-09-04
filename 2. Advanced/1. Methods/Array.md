@@ -1,6 +1,25 @@
 # Методы массивов
 
-## 1. `join`
+## 1. `length`
+`length` возвращает количество элементов в массиве.
+```js
+const fruits = ['apple', 'banana', 'orange'];
+console.log(fruits.length); // 3
+
+const numbers = [1, 2, 3, 4, 5];
+console.log(numbers.length); // 5
+
+const empty = [];
+console.log(empty.length); // 0
+```
+
+`Строки`: возвращает длину строки.
+```js
+let str = "Hello, World!";
+console.log(str.length); // 13
+```
+
+## 2. `join`
 `.join()` приводит все элементы массива к строке и конкатенирует их в одну итоговую строку, разделяя переданным символом — разделителем.
 
 ```js
@@ -23,32 +42,19 @@ let result = arr.join('');  // 'abc'
 console.log(result);
 ```
 
-## 2. `substring`
-`.substring(start, end)`
-- Возвращает часть строки от индекса start до индекса end (не включая end).
-- Если start больше end, то метод меняет их местами.
-- Если один из индексов меньше нуля, он будет интерпретироваться как 0.
+## 3. `split`
+Разбивает строку на массив подстрок по указанному разделителю.
 ```js
-let str = "Hello, world!";
-let result = str.substring(0, 5);  // "Hello"
-console.log(result);
-```
-
-## 3. `substr`
-`.substr(start, length)`
-- Возвращает подстроку, начиная с позиции start и длиной length.
-- Если length не указан, метод вернет строку от позиции start до конца строки.
-- Важно: substr считается устаревшим и не рекомендуется к использованию в новых проектах, так как может быть удален в будущих версиях.
-```js
-let str = "Hello, world!";
-let result = str.substr(7, 5);  // "world"
-console.log(result);
+const str = "apple,banana,orange";
+const result = str.split(",");
+console.log(result); // ["apple", "banana", "orange"]
 ```
 
 ## 4. `slice`
 `.slice(start, end)`
-- Очень похож на substring, но отличается тем, что может принимать отрицательные значения для start и end, что позволяет отсчитывать индексы с конца строки.
+- Может принимать отрицательные значения для start и end, что позволяет отсчитывать индексы с конца строки.
 - Если start больше end, метод просто возвращает пустую строку.
+- `slice()` не изменяет оригинал, а возвращает новый объект.
 ```js
 let str = "Hello, world!";
 let result = str.slice(7, 12);  // "world"
@@ -59,6 +65,21 @@ let resultNegative = str.slice(-6, -1);  // "world"
 console.log(resultNegative);
 ```
 
+`substring` -  Устаревающий, `substr` - УСТАРЕВШИЙ - это старые аналоги slice.
+
+`Строки`: используется для извлечения части строки и возвращает новую строку без изменения оригинальной строки.
+```js
+const str = "Hello, World!";
+
+// Извлечение с начала
+console.log(str.slice(0, 5)); // "Hello"
+```
+
+```js
+let str = "Hello, World!";
+console.log(str.slice(-6, -1));   // "World"
+```
+
 ## 5. `splice`
 `.splice()` — это действительно "швейцарский нож" для работы с массивами. Он позволяет:
 - Удалять элементы из массива.
@@ -67,9 +88,9 @@ console.log(resultNegative);
 ```js
 array.splice(start, deleteCount, item1, item2, ...)
 ```
-- start — индекс, с которого начинается изменение.
-- deleteCount — количество элементов, которые нужно удалить (необязательный параметр).
-- item1, item2, ... — элементы, которые нужно добавить в массив, начиная с позиции start.
+- `start` — индекс, с которого начинается изменение.
+- `deleteCount` — количество элементов, которые нужно удалить (необязательный параметр).
+- `item1, item2, ...` — элементы, которые нужно добавить в массив, начиная с позиции start.
 
 Удаление элементов:
 ```js
@@ -93,17 +114,22 @@ console.log(arr);  // [1, 'x', 'y', 4]
 ```
 
 ## 6. `concat`
-`.concat()` – Объединяет два или более массивов в один.
+`.concat()` – объединяет два или более массивов в один.
 ```js
 let arr1 = [1, 2];
 let arr2 = [3, 4];
 let combined = arr1.concat(arr2);  // [1, 2, 3, 4]
 ```
 
+`Строки`: Соединяет две или более строк.
+```js
+let str1 = "Hello";
+let str2 = "World";
+console.log(str1.concat(", ", str2, "!")); // "Hello, World!"
+```
+
 ## 7. `includes`
-`.includes()` проверяет, содержит ли массив или строка определённый элемент. Возвращает true, если элемент найден, и false, если нет.
-- Массивы: проверяет наличие элемента в массиве.
-- Строки: проверяет наличие подстроки в строке.
+`.includes()` проверяет, содержит ли массив определённый элемент. Возвращает true, если элемент найден, и false, если нет.
 ```js
 array.includes(element, start)
 ```
@@ -120,6 +146,13 @@ console.log(str.includes("world"));  // true
 console.log(str.includes("hi"));  // false
 ```
 
+`Cтроки`: проверяет, содержится ли подстрока в строке.
+```js
+let str = "Hello, World!";
+console.log(str.includes("World")); // true
+console.log(str.includes("world")); // false
+```
+
 ## 8. `indexOf`
 `.indexOf()` возвращает индекс первого вхождения элемента в массиве или строке. Если элемент не найден, возвращается -1. По умолчанию поиск начинается с первого элемента, но можно указать начальный индекс.
 ```js
@@ -131,12 +164,15 @@ array.indexOf(element, start)
 let arr = [1, 2, 3, 4];
 console.log(arr.indexOf(3));  // 2
 console.log(arr.indexOf(5));  // -1
-
-// Строка
-let str = "Hello, world!";
-console.log(str.indexOf("world"));  // 7
-console.log(str.indexOf("hi"));  // -1
 ```
+
+`Строки`: возвращает индекс первого вхождения подстроки.
+```js
+let str = "Hello, World!";
+console.log(str.indexOf("World")); // 7
+console.log(str.indexOf("world")); // -1 (регистр важен)
+```
+
 
 ## Итого:
 - Для добавления и извлечения элементов: `unshift(), push(), shift(), pop(), splice()`.
